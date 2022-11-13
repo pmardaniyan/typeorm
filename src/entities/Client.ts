@@ -1,22 +1,39 @@
-import { Entity, BaseEntity, Column , PrimaryGeneratedColumn } from "typeorm";
+import { Entity,  Column , CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { Person } from "./utils/Person";
 
 @Entity("client")
-export class Client extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
-  @Column({
-    nullable: true
-  })
-  first_name: string;
+export class Client extends Person {
+ 
 
   @Column({
-    nullable: true
+    type : "numeric",
+
   })
-  last_name: string;
+  balance: number;
 
   @Column({
-    nullable: true,
-    unique : true,
+    default : true,
+    name: "active"
   })
-  email: string;
+  is_active: boolean;
+  @Column({
+    type: "simple-json",
+    nullable: true
+  })
+  additional_info: {
+    age:number;
+    hair_color: string
+  }
+
+  @Column({
+    type: "simple-array",
+    default:[]
+  })
+  family_members: string[]
+
+  @CreateDateColumn()
+  created_at : Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
 }
