@@ -2,6 +2,7 @@ import { DataSource } from "typeorm"
 
 
 import { config } from "dotenv"
+import { Client } from "./entities/Client"
 
 
 config()
@@ -14,8 +15,9 @@ const AppDataSource = new DataSource ({
     username: "postgres",
     password: process.env.PASSWORD_DB as unknown as string,
     database: "orm",
+    synchronize : true,
     entities: [
-        // ....
+        Client,
     ],
 
 
